@@ -1,15 +1,17 @@
 /* Reset */
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Body */
+/* Body - exact reCAPTCHA style */
 body {
-  background-color: #f9f9f9;
-  font-family: "Roboto", Arial, sans-serif;
-  color: #202124;
+  background-color: #fff;
+  font-family: Roboto, Helvetica, Arial, sans-serif;
+  color: #000;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -26,101 +28,182 @@ body {
   flex: 1;
 }
 
-/* Captcha Box */
+/* Captcha Box - 1.5x Scale */
 .captcha-box {
   background-color: #f9f9f9;
   border: 1px solid #d3d3d3;
-  border-radius: 3px;
-  padding: 12px 14px;
+  border-radius: 5px; /* ~1.5x of 3px */
+  padding: 0 18px; /* 1.5x of 12px */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 40px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-  min-width: 300px;
+  height: 111px; /* 1.5x of 74px */
+  min-width: 456px; /* 1.5x of 304px */
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.08); /* scaled shadow */
 }
 
 .captcha-left {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 21px; /* 1.5x of 14px */
 }
 
+/* Checkbox - 1.5x Scale */
 .checkbox-wrapper {
-  width: 28px;
-  height: 28px;
-  border: 2px solid #c1c1c1;
-  border-radius: 2px;
+  width: 42px; /* 1.5x of 28px */
+  height: 42px; /* 1.5x of 28px */
+  border: 3px solid #c1c1c1; /* 1.5x of 2px */
+  border-radius: 3px; /* 1.5x of 2px */
   background: #fff;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
   transition:
-    border-color 0.2s,
-    box-shadow 0.2s;
+    background-color 0.2s,
+    border-color 0.2s;
+  position: relative;
 }
 
 .checkbox-wrapper:hover {
-  border-color: #a0a0a0;
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
+  border-color: #b9b9b9;
+  background-color: #f5f5f5;
+}
+
+.checkbox-wrapper.checked {
+  border-color: #c1c1c1;
+  background: #fff;
 }
 
 .checkbox {
-  width: 100%;
-  height: 100%;
+  width: 36px; /* 1.5x of 24px */
+  height: 36px; /* 1.5x of 24px */
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
-.checkbox.checked::after {
-  content: "✓";
-  color: #4285f4;
-  font-size: 20px;
-  font-weight: bold;
+/* Spinner - 1.5x Scale - Reduced slightly */
+.spinner {
+  display: none;
+  width: 28px; /* Reduced from 36px */
+  height: 28px; /* Reduced from 36px */
+  position: relative;
 }
 
+.spinner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent; /* Reduced from 4px */
+  border-top-color: #4285f4;
+  border-radius: 50%;
+  animation: recaptcha-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+.spinner::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 3px solid transparent; /* Reduced from 4px */
+  border-top-color: #4285f4;
+  border-radius: 50%;
+  animation: recaptcha-spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  animation-delay: -0.45s;
+  opacity: 0.4;
+}
+
+.checkbox-wrapper.loading .spinner {
+  display: block;
+}
+
+@keyframes recaptcha-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* Checkmark - 1.5x Scale */
+.checkmark {
+  display: none;
+  width: 30px; /* 1.5x of 20px */
+  height: 30px; /* 1.5x of 20px */
+  fill: #00a854;
+  animation: checkmark-pop 0.3s ease-out;
+}
+
+.checkbox-wrapper.checked .checkmark {
+  display: block;
+}
+
+@keyframes checkmark-pop {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+/* Captcha text - 1.5x Scale */
 .captcha-text {
-  font-size: 14px;
-  color: #202124;
+  font-size: 21px; /* 1.5x of 14px */
+  font-weight: 400;
+  color: #000;
   user-select: none;
 }
 
+/* Right side branding - 1.5x Scale */
 .captcha-right {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 0;
+  padding-left: 30px; /* 1.5x of 20px */
 }
 
-.doomtcha-logo svg {
-  display: block;
+.doomtcha-logo {
+  width: 48px; /* 1.5x of 32px */
+  height: 48px; /* 1.5x of 32px */
+  object-fit: contain;
 }
 
 .doomtcha-brand {
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-top: 3px; /* ~1.5x of 2px */
 }
 
 .brand-name {
-  font-size: 11px;
-  font-weight: 500;
+  font-size: 15px; /* 1.5x of 10px */
+  font-weight: 400;
   color: #555;
-  text-transform: lowercase;
+  letter-spacing: 0.5px; /* ~1.5x of 0.3px */
 }
 
 .brand-links {
   display: flex;
-  gap: 4px;
-  font-size: 10px;
+  gap: 5px; /* ~1.5x of 3px */
+  font-size: 12px; /* 1.5x of 8px */
 }
 
 .brand-links a {
   color: #555;
   text-decoration: none;
-  transition: text-decoration 0.2s;
 }
 
 .brand-links a:hover {
@@ -131,13 +214,10 @@ body {
   color: #555;
 }
 
-/* Canvas (hidden initially) */
+/* Canvas */
 #canvas {
   display: none;
   cursor: none;
-  border: 1px solid #d3d3d3;
-  border-radius: 3px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
 }
 
 /* Footer */
@@ -147,8 +227,8 @@ footer {
   left: 0;
   right: 0;
   padding: 16px;
-  background-color: #f9f9f9;
-  color: #5f6368;
+  background-color: #fff;
+  color: #70757a;
   font-size: 13px;
   display: flex;
   align-items: center;
@@ -156,20 +236,14 @@ footer {
   gap: 5px;
 }
 
-footer span {
-  color: #5f6368;
-}
-
-/* Author link with hover card */
 .author-wrapper {
   position: relative;
   display: inline-block;
 }
 
 .author-link {
-  color: #5f6368;
+  color: #70757a;
   text-decoration: none;
-  transition: text-decoration 0.2s;
 }
 
 .author-link:hover {
@@ -179,19 +253,18 @@ footer span {
 /* Hover card */
 .hover-card {
   position: absolute;
-  bottom: 100%;
+  bottom: calc(100% + 8px);
   left: 50%;
   transform: translateX(-50%);
   background: #fff;
   border: 1px solid #dadce0;
   border-radius: 8px;
-  padding: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  padding: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
   display: none;
   flex-direction: column;
-  gap: 8px;
-  min-width: 140px;
-  margin-bottom: 8px;
+  gap: 6px;
+  min-width: 130px;
   z-index: 100;
 }
 
@@ -215,36 +288,16 @@ footer span {
   gap: 8px;
   color: #202124;
   text-decoration: none;
-  font-size: 13px;
-  padding: 4px 0;
-  transition: color 0.2s;
+  font-size: 12px;
+  padding: 4px 2px;
+  border-radius: 4px;
 }
 
 .hover-card a:hover {
+  background: #f1f3f4;
   color: #1a73e8;
 }
 
 .hover-card a svg {
   flex-shrink: 0;
-}
-
-/* Loading state for checkbox */
-.checkbox-wrapper.loading {
-  position: relative;
-}
-
-.checkbox-wrapper.loading::after {
-  content: "";
-  width: 16px;
-  height: 16px;
-  border: 2px solid #c1c1c1;
-  border-top-color: #4285f4;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
 }

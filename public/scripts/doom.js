@@ -44,25 +44,52 @@ function validateWadFile(buffer) {
 // Initialize the Doom module
 const doom = await Module(module_args);
 
-// Load and start Doom
+// UI Elements
+const captchaBox = document.getElementById("captcha-box");
+const checkboxWrapper = document.getElementById("checkbox-wrapper");
+const spinner = document.getElementById("spinner");
+const checkmark = document.getElementById("checkmark");
+
+let isVerifying = false;
+
+// Load and start Doom - called AFTER spinner animation
 function LoadDoom(buffer) {
   if (!validateWadFile(buffer)) {
     console.error("Invalid WAD file");
+    resetCheckbox();
     return;
   }
 
-  // Hide captcha box, show canvas
-  const captchaBox = document.getElementById("captcha-box");
-  captchaBox.style.display = "none";
-  canvas.style.display = "block";
+  // Now show the checkmark (verification complete)
+  checkboxWrapper.classList.remove("loading");
+  checkboxWrapper.classList.add("checked");
 
-  // Write WAD file to virtual filesystem and start the game
-  doom.FS.writeFile("/doom-data.wad", buffer);
-  doom.callMain(["-iwad", "doom-data.wad"]);
+  // Brief delay to show checkmark, then launch Doom
+  setTimeout(() => {
+    captchaBox.style.display = "none";
+    canvas.style.display = "block";
+
+    // Write WAD file to virtual filesystem and start the game
+    doom.FS.writeFile("/doom-data.wad", buffer);
+    doom.callMain(["-iwad", "doom-data.wad"]);
+  }, 600);
 }
 
-// Start Doomtcha: load the WAD and run
-function startDoomtcha() {
+// Reset checkbox to initial state
+function resetCheckbox() {
+  isVerifying = false;
+  checkboxWrapper.classList.remove("loading", "checked");
+}
+
+// Start verification process
+function startVerification() {
+  if (isVerifying) return;
+  isVerifying = true;
+
+  // Step 1: Show loading spinner (like real reCAPTCHA)
+  checkboxWrapper.classList.add("loading");
+
+  // Step 2: Fetch the WAD file while showing spinner
   fetch(WAD_URL)
     .then((response) => {
       if (!response.ok) {
@@ -71,43 +98,29 @@ function startDoomtcha() {
       return response.arrayBuffer();
     })
     .then((arrBuffer) => {
-      let buffer = new Uint8Array(arrBuffer);
-      LoadDoom(buffer);
+      // Minimum spinner time for visual feedback (like real reCAPTCHA)
+      // WAD might load fast, but we want to show the spinner for at least 1.5s
+      setTimeout(() => {
+        let buffer = new Uint8Array(arrBuffer);
+        LoadDoom(buffer);
+      }, 1500);
     })
     .catch((err) => {
       console.error("Error loading WAD:", err);
       alert("Failed to load game. Please refresh and try again.");
+      resetCheckbox();
     });
 }
 
 // Captcha checkbox click handler
-const checkboxWrapper = document.getElementById("checkbox-wrapper");
-const checkbox = document.getElementById("captcha-checkbox");
-
-checkboxWrapper.addEventListener("click", () => {
-  // Add loading state
-  checkboxWrapper.classList.add("loading");
-  checkbox.textContent = "";
-
-  // Short delay for visual feedback, then start Doom
-  setTimeout(() => {
-    checkboxWrapper.classList.remove("loading");
-    checkbox.classList.add("checked");
-
-    // Start Doom after showing checkmark briefly
-    setTimeout(() => {
-      startDoomtcha();
-    }, 300);
-  }, 500);
-});
+checkboxWrapper.addEventListener("click", startVerification);
 
 // Fullscreen change handler
 document.addEventListener("fullscreenchange", () => {
-  if (document.fullscreenElement) {
-    console.log("Application is now in fullscreen mode");
-  } else {
+  if (!document.fullscreenElement) {
     console.log("Application exited fullscreen mode");
     canvas.style.display = "none";
-    document.getElementById("captcha-box").style.display = "flex";
+    captchaBox.style.display = "flex";
+    resetCheckbox();
   }
 });
