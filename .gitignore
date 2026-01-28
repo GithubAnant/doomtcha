@@ -65,3 +65,4 @@ src/build
 # public/wasm/
 # also the wad (Shareware) file is baked into the .data file, so ignorig it
 *.data
+.vercel
