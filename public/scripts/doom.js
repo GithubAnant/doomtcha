@@ -1,99 +1,113 @@
-import Module from '../wasm/wasm-doom.js';
+import Module from "../wasm/wasm-doom.js";
 
-const sharewhare = window.location.href + '/shareware.wad';
-console.log(sharewhare);
-let canvas = document.getElementById('canvas');
+const WAD_URL = "./doom1.wad";
+
+let canvas = document.getElementById("canvas");
 canvas.width = 320;
 canvas.height = 200;
-canvas.style.cursor = 'none';
-canvas.style.display = 'none';
+canvas.style.cursor = "none";
+canvas.style.display = "none";
 
-// As a default initial behavior, pop up an alert when webgl context is lost. To make your
-// application robust, you may want to override this behavior before shipping!
-// See http://www.khronos.org/registry/webgl/specs/latest/1.0/#5.15.2
-canvas.addEventListener("webglcontextlost", (e) => { alert('WebGL context lost. You will need to reload the page.'); e.preventDefault(); }, false);
+// WebGL context lost handler
+canvas.addEventListener(
+  "webglcontextlost",
+  (e) => {
+    alert("WebGL context lost. You will need to reload the page.");
+    e.preventDefault();
+  },
+  false,
+);
 
-// Create a canvas element and attach it to the body
+// Module configuration
 let module_args = {
-    canvas: canvas,
-    // From https://emscripten.org/docs/porting/files/packaging_files.html?#changing-the-data-file-location
-    // It states that the default location is the same as where the wasm file is hosted, this is not the case for us
-    // it will only work out of the box if the wasm file is in the same directory as the html index
-    // so we need to specify the location of the wasm file
-    locateFile: (remote_package_base, _) => {
-        return 'wasm/' + remote_package_base;
-    }
-}
+  canvas: canvas,
+  locateFile: (remote_package_base, _) => {
+    return "wasm/" + remote_package_base;
+  },
+};
 
-
+// Validate WAD file
 function validateWadFile(buffer) {
-    // Check if the file is valid by checking the first 4 bytes of the file
-    // if they are not 'IWAD' then the file is not valid
-    // If the buffer is empty or the file is not a valid WAD file
-    if (buffer.length === 0 || buffer.length < 4) {
-        console.error('Empty buffer');
-        return false;
-    }
-    if (String.fromCharCode(buffer[0], buffer[1], buffer[2], buffer[3]) !== 'IWAD') {
-        console.error('Invalid WAD file');
-        return false;
-    }
-    return true;
+  if (buffer.length === 0 || buffer.length < 4) {
+    console.error("Empty buffer");
+    return false;
+  }
+  if (
+    String.fromCharCode(buffer[0], buffer[1], buffer[2], buffer[3]) !== "IWAD"
+  ) {
+    console.error("Invalid WAD file");
+    return false;
+  }
+  return true;
 }
 
+// Initialize the Doom module
 const doom = await Module(module_args);
-const btnFileUpload = document.getElementById('wad-upload');
-const btnUseShareWare = document.getElementById('btn-use-shareware');
-const btnTeslaMode = document.getElementById('btn-tesla-mode');
 
+// Load and start Doom
 function LoadDoom(buffer) {
-    let errorLabel = document.querySelector('.error-label');
-    if (!validateWadFile(buffer)) {
-        errorLabel.style.display = 'block';
-        return;
-    }
-    errorLabel.style.display = 'none';
-    canvas.style.display = 'block';
-    doom.FS.writeFile('/doom-data.wad', buffer);
-    doom.callMain(['-iwad', 'doom-data.wad']);
+  if (!validateWadFile(buffer)) {
+    console.error("Invalid WAD file");
+    return;
+  }
+
+  // Hide captcha box, show canvas
+  const captchaBox = document.getElementById("captcha-box");
+  captchaBox.style.display = "none";
+  canvas.style.display = "block";
+
+  // Write WAD file to virtual filesystem and start the game
+  doom.FS.writeFile("/doom-data.wad", buffer);
+  doom.callMain(["-iwad", "doom-data.wad"]);
 }
 
-btnFileUpload.addEventListener('change', (e) => { 
-    let file = e.target.files[0];
-    let reader = new FileReader();
-    reader.onload = (e) => {
-        let buffer = new Uint8Array(e.target.result);
-        LoadDoom(buffer);
-    }
-    reader.readAsArrayBuffer(file);
-    console.log('file uploaded');
+// Start Doomtcha: load the WAD and run
+function startDoomtcha() {
+  fetch(WAD_URL)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Failed to load WAD file");
+      }
+      return response.arrayBuffer();
+    })
+    .then((arrBuffer) => {
+      let buffer = new Uint8Array(arrBuffer);
+      LoadDoom(buffer);
+    })
+    .catch((err) => {
+      console.error("Error loading WAD:", err);
+      alert("Failed to load game. Please refresh and try again.");
+    });
+}
+
+// Captcha checkbox click handler
+const checkboxWrapper = document.getElementById("checkbox-wrapper");
+const checkbox = document.getElementById("captcha-checkbox");
+
+checkboxWrapper.addEventListener("click", () => {
+  // Add loading state
+  checkboxWrapper.classList.add("loading");
+  checkbox.textContent = "";
+
+  // Short delay for visual feedback, then start Doom
+  setTimeout(() => {
+    checkboxWrapper.classList.remove("loading");
+    checkbox.classList.add("checked");
+
+    // Start Doom after showing checkmark briefly
+    setTimeout(() => {
+      startDoomtcha();
+    }, 300);
+  }, 500);
 });
 
-btnUseShareWare.addEventListener('click', () => {
-    // Download the file and load it into the wasm module
-    fetch(sharewhare)
-        .then(response => response.arrayBuffer())
-        .then(arrBuffer => {
-            let buffer = new Uint8Array(arrBuffer)
-            LoadDoom(buffer);
-        });
-});
-
-btnTeslaMode.addEventListener('click', () => { 
-    let urlString = "https://www.youtube.com/redirect?q=" + window.location.href
-    let url = new URL(urlString);
-    window.location.href = url;
-});
-
-
+// Fullscreen change handler
 document.addEventListener("fullscreenchange", () => {
-    if (document.fullscreenElement) {
-        console.log("Application is now in fullscreen mode");
-    } else {
-        console.log("Application exited fullscreen mode");
-        canvas.style.display = 'none';
-        document.body.style.background = '';
-    }
+  if (document.fullscreenElement) {
+    console.log("Application is now in fullscreen mode");
+  } else {
+    console.log("Application exited fullscreen mode");
+    canvas.style.display = "none";
+    document.getElementById("captcha-box").style.display = "flex";
+  }
 });
-
-

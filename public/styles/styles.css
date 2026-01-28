@@ -1,146 +1,250 @@
-/* DOOM font from: https://www.fontspace.com/amaz-doom-font-f9098 */
-@font-face {
-  font-family: 'Amazdoomleft';
-  src: url('../fonts/Amazdoomleft-epw3.ttf') format('truetype');
-}
-@font-face {
-font-family: 'Amazdoomright';
-src: url('../fonts/Amazdoomright-o1B0.ttf') format('truetype');
-}
-
-
-/* Reset default styles */
+/* Reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-/* Set background color */
+/* Body */
 body {
-  background-color: #000;
+  background-color: #f9f9f9;
+  font-family: "Roboto", Arial, sans-serif;
+  color: #202124;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Set font and text color */
-body {
-  font-family: 'Courier New', monospace;
-  color: #fff;
+/* Container */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 }
 
-/* Set default text alignment */
-body {
-  text-align: center;
+/* Captcha Box */
+.captcha-box {
+  background-color: #f9f9f9;
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  min-width: 300px;
 }
 
-/* Style headings */
-h1, h2, h3 {
-  font-weight: bold;
-  margin-bottom: 1rem;
+.captcha-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
 
-/* Style links */
-a {
-  color: #fff;
-  text-decoration: none;
-}
-
-/* Style buttons */
-button {
-	font-family: 'Courier New', monospace;
-	font-size: 1rem;
-	padding: 0.5rem 1rem;
-	background-color: #ff0000;
-	color: #fff;
-	border: none;
-	cursor: pointer;
-}
-
-footer {
-	position: absolute;
-	bottom: 0;
-	padding: 1rem;
-	width: 100%;
-	height: 2.5rem;
-	background-color: #000;
-	color: gray;
-	display: flex;
-	justify-content: start;
-	align-items: center;
-}
-
-.app-title {
-	height: 15rem;
-}
-.title {
-	font-size: 5rem;
-	display: flex;
-	justify-content: center;
-}
-
-.title-left {
-  	font-family: 'Amazdoomleft', sans-serif;
-}
-
-.title-right {
-  	font-family: 'Amazdoomright', sans-serif;
-}
-
-.title-wasm-container{
-	background-color: blue;
-	height: 5rem;
-}
-.title-wasm h2{
-	font-size: 4rem !important;
-	line-height: 5rem;
-	transform: translateY(.75rem);
-}
-
-.title-doom{
-	transform: translateX(3px);
-}
-.title-doom h1 {
-	color: #d40101;
-	line-height: 12rem;
-	position: relative;
-	z-index: 1;
-}
-
-.vertical-center {
+.checkbox-wrapper {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #c1c1c1;
+  border-radius: 2px;
+  background: #fff;
+  cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
-.custom-file-upload {
-    padding: 10px;
-    border: none;
-    border-radius: 5px;
-    color: rgb(255, 0, 0);
-	background-color: #ffffff;
-    cursor: pointer;
-    display: block;
-	position: relative;
-	z-index: 10;
-	margin-bottom: 1rem;
-	margin-left: auto;
-	margin-right: auto;
-	width: 100%;
+.checkbox-wrapper:hover {
+  border-color: #a0a0a0;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.05);
 }
 
-.custom-file-upload:hover {
-    border-color: #777;
+.checkbox {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-input[type="file"] {
-	padding: 10px;
-	border: none;
-	border-radius: 5px;
-	font-size: 1em;
-	background-color: #d40101;
-	cursor: pointer;
+.checkbox.checked::after {
+  content: "✓";
+  color: #4285f4;
+  font-size: 20px;
+  font-weight: bold;
 }
 
-input[type="file"]:hover {
-	border-color: #777;
+.captcha-text {
+  font-size: 14px;
+  color: #202124;
+  user-select: none;
+}
+
+.captcha-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.doomtcha-logo svg {
+  display: block;
+}
+
+.doomtcha-brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.brand-name {
+  font-size: 11px;
+  font-weight: 500;
+  color: #555;
+  text-transform: lowercase;
+}
+
+.brand-links {
+  display: flex;
+  gap: 4px;
+  font-size: 10px;
+}
+
+.brand-links a {
+  color: #555;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.brand-links a:hover {
+  text-decoration: underline;
+}
+
+.brand-links span {
+  color: #555;
+}
+
+/* Canvas (hidden initially) */
+#canvas {
+  display: none;
+  cursor: none;
+  border: 1px solid #d3d3d3;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+}
+
+/* Footer */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 16px;
+  background-color: #f9f9f9;
+  color: #5f6368;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+footer span {
+  color: #5f6368;
+}
+
+/* Author link with hover card */
+.author-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.author-link {
+  color: #5f6368;
+  text-decoration: none;
+  transition: text-decoration 0.2s;
+}
+
+.author-link:hover {
+  text-decoration: underline;
+}
+
+/* Hover card */
+.hover-card {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border: 1px solid #dadce0;
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 140px;
+  margin-bottom: 8px;
+  z-index: 100;
+}
+
+.author-wrapper:hover .hover-card {
+  display: flex;
+}
+
+.hover-card::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: #fff;
+}
+
+.hover-card a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #202124;
+  text-decoration: none;
+  font-size: 13px;
+  padding: 4px 0;
+  transition: color 0.2s;
+}
+
+.hover-card a:hover {
+  color: #1a73e8;
+}
+
+.hover-card a svg {
+  flex-shrink: 0;
+}
+
+/* Loading state for checkbox */
+.checkbox-wrapper.loading {
+  position: relative;
+}
+
+.checkbox-wrapper.loading::after {
+  content: "";
+  width: 16px;
+  height: 16px;
+  border: 2px solid #c1c1c1;
+  border-top-color: #4285f4;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
