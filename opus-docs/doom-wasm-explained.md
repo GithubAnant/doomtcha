@@ -12,10 +12,7 @@ flowchart LR
     B --> C[WebAssembly<br/>.wasm file]
     C --> D[Your Browser<br/>Runs the game!]
 
-    style A fill:#f9f,stroke:#333
-    style B fill:#ff9,stroke:#333
-    style C fill:#9ff,stroke:#333
-    style D fill:#9f9,stroke:#333
+
 ```
 
 **In plain English:** Someone wrote Doom in the C programming language in 1993. A special tool called Emscripten converts that old C code into WebAssembly - a format that browsers understand. Your browser runs this WebAssembly code, and boom: Doom in your browser.
@@ -69,7 +66,7 @@ flowchart TD
     OG --> |port| Lin[Linux Port]
     OG --> |port| WASM[WebAssembly Port<br/>This project!]
 
-    style WASM fill:#9ff,stroke:#333,stroke-width:3px
+
 ```
 
 This project is a port that uses:
@@ -127,8 +124,7 @@ flowchart TB
     WASM -->|draws to| CANVAS
     WAD -->|provides levels,<br/>textures, sounds| WASM
 
-    style WASM fill:#ff9,stroke:#333,stroke-width:2px
-    style WAD fill:#f9f,stroke:#333,stroke-width:2px
+
 ```
 
 ---
@@ -468,8 +464,7 @@ flowchart TD
     E --> F[Show checkmark animation]
     F --> G[CAPTCHA verified!]
 
-    style D fill:#ff9,stroke:#333,stroke-width:2px
-    style F fill:#9f9,stroke:#333,stroke-width:2px
+
 ```
 
 ### Files to Create/Modify
