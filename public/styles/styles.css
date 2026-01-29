@@ -9,7 +9,7 @@
 
 /* Body - exact reCAPTCHA style */
 body {
-  background-color: #fff;
+  background-color: #fff !important;
   font-family: Roboto, Helvetica, Arial, sans-serif;
   color: #000;
   min-height: 100vh;
@@ -214,10 +214,29 @@ body {
   color: #555;
 }
 
+/* Canvas Wrapper */
+.canvas-wrapper {
+  display: none; /* Toggled to flex by JS */
+  flex: 1; /* Take all available space in container */
+  width: 100%;
+  height: 100%;
+  min-height: 0; /* Important for flex child to shrink */
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Prevent overflow */
+  position: relative; /* For absolute overlay positioning */
+}
+
 /* Canvas */
 #canvas {
-  display: none;
-  cursor: none;
+  /* Fit entirely within the wrapper using object-fit */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+
+  image-rendering: pixelated;
+  outline: none; /* remove focus outline */
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
 }
 
 /* Footer */

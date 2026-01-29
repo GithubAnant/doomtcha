@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Success?</title>
+    <link rel="stylesheet" href="./styles/success.css" />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Section 1 -->
+      <div class="section" id="section-1">
+        <h1 class="text-large">So, you passed the captcha? did u enjoy it?</h1>
+        <div class="button-group">
+          <button class="btn btn-white" id="btn-enjoy-yes">yes</button>
+          <button class="btn btn-white" id="btn-enjoy-no">no</button>
+        </div>
+        <p class="response-text hidden" id="response-enjoy">
+          WOW THANKS! I knew you would.
+        </p>
+      </div>
+
+      <!-- Section 2 -->
+      <div class="section" id="section-2">
+        <div class="split-content">
+          <div class="text-side">
+            <p class="text-medium">
+              i didnt really plan nothing after the captcha is done tbh
+            </p>
+            <p class="text-medium" style="margin-top: 50px">
+              its a little awkward now
+            </p>
+          </div>
+          <div class="image-side">
+            <img src="./awkward.png" alt="awkward" class="awkward-img" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Section 3 -->
+      <div class="section" id="section-3">
+        <p class="text-medium">do you have any idea what you wanna do</p>
+        <div class="arrow-container">
+          <svg viewBox="0 0 500 200" class="red-arrow">
+            <!-- Big swooping arrow pointing right -->
+            <path
+              d="M 50 100 Q 250 180 450 100 M 450 100 L 400 60 M 450 100 L 400 140"
+              fill="none"
+              stroke="red"
+              stroke-width="12"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+          <button class="btn btn-white" id="btn-idea-no">nah not really</button>
+        </div>
+        <p class="click-here-text">click here there are no other options</p>
+      </div>
+
+      <!-- Section 4 -->
+      <div class="section" id="section-4">
+        <p class="text-medium">
+          well do u just wanna play some more DOOM then?
+        </p>
+        <div class="button-group">
+          <button class="btn btn-white" id="btn-play-yes">yes</button>
+          <div class="runaway-wrapper">
+            <button class="btn btn-white" id="btn-play-no">no</button>
+            <span class="hover-warning hidden">(DONT YOU DARE SAY NO)</span>
+          </div>
+        </div>
+        <div id="play-confirmation" class="hidden">
+          <p class="text-green">ok as you wish <span id="countdown"></span></p>
+        </div>
+      </div>
+
+      <!-- Game Container -->
+      <div class="canvas-wrapper hidden" id="game-container">
+        <canvas id="canvas" oncontextmenu="event.preventDefault()"></canvas>
+      </div>
+    </div>
+
+    <!-- Load WASM script dynamically when needed, or include it but don't init -->
+    <script type="module" src="./scripts/success.js"></script>
+  </body>
+</html>
