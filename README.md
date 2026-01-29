@@ -1,24 +1,52 @@
-# wasmDOOM
-Adaption of the original DOOM ported to run in a WASM environment.
-This project is for educational purposes and learned me the basics of taking an existing project, that in particular includes graphics rendering, and porting it to WASM.
-![image](https://github.com/VanIseghemThomas/wasmDOOM/assets/55881698/79777d10-50fe-4521-bdbc-1dcd82395a91)
+# Doomtcha
 
+**Doomtcha** is a "CAPTCHA" (Completely Automated Public Turing test to tell Computers and Humans Apart) that requires users to prove they are human by slaying demons in the classic 1993 game **DOOM**, running directly in the browser via WebAssembly.
 
-# Building
-## Dependencies (not relevant when using Docker)
+<div align="center">
+  <img src="public/logo.png" alt="Doomtcha Logo" width="200" />
+</div>
+
+## About
+
+This project is an experiment in "proof-of-work" UI. Instead of clicking traffic lights or typing warped text, users must demonstrate their demon-slaying capabilities. It runs a port of the original Doom engine compiled to WebAssembly (WASM), allowing it to run smoothly in modern web browsers.
+
+## Credits
+
+This project stands on the shoulders of giants:
+
+- **Anant Singhal**: Creator of **Doomtcha** (Web UI, CAPTCHA logic, and integration).
+- **Thomas Van Iseghem**: Creator of [wasmDOOM](https://github.com/VanIseghemThomas/wasmDOOM), the foundational WASM port this project is built upon.
+- **Alex Oberhofer**: Creator of [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom), which wasmDOOM is based on.
+- **Id Software**: The legends who created DOOM.
+
+## License
+
+This project is licensed under the **GNU General Public License v2.0 (GPLv2)**. See the [LICENSE](LICENSE) file for details.
+This license is required as this project derives from the original DOOM source code.
+
+---
+
+## Building
+
+### Dependencies (not relevant when using Docker)
+
 - make
-- emscriptem
+- emscripten
 - SDL2
 
-The easy way is to go to `intallers` and run:
-```
+The easy way is to go to `installers` and run:
+
+```bash
 install_deps_<target-platform>.sh
 ```
 
 Or you can do the manual way below:
-### Emscriptem
+
+### Emscripten
+
 From the [official docs](https://emscripten.org/docs/getting_started/downloads.html):
-```
+
+```bash
 git clone https://github.com/emscripten-core/emsdk.git
 cd emsdk
 ./emsdk install latest
@@ -27,50 +55,45 @@ source ./emsdk_env.sh
 ```
 
 ### SDL 2 (MacOS)
-```
+
+```bash
 brew install SDL2
 brew install SDL2_image
 brew install SDL2_ttf
 ```
 
 ## Compile
+
 ### Using Docker
+
 The build script will take care of everything.
-```
+
+```bash
 ./build.sh
 ```
 
 ### Locally
+
 To build the project simply run:
-```
+
+```bash
 cd src && make
 ```
+
 Then you can host a simple web server to serve the page. I always use a simple python module for this:
 
-# Serving
-```
+## Serving
+
+```bash
 cd public
-python3 http.server (optional: -p <some-custom-port>)
+python3 -m http.server 8000
 ```
 
-Now DOOM should be available on `localhost`
+Now Doomtcha should be available on `http://localhost:8000`
 
-To play doom you will need to upload a so called "where all data" .wad file. I got mine [from here](http://sauparna.sdf.org/Doom/Compile_Doom) and is tested working. You can just put it in the root of the repository, or somewhere you like.
+## Limitations
 
-# Limitations:
-Note: this does not mean I wont look into resolving this in the future. I will do my absolute best to get as close as possible to a native gaming experience.
-- No support for audio
-- No controller support (only tested on mobile)
+- No support for audio (yet)
+- No controller support (only tested on mobile/desktop keyboard)
 - Persistent save between reloads
 - Project build only tested and developed on MacOS
-
-# Credits / sources
-I can't take credit for al the work here. This repository is based on the work done by [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom) which is modified to work with the [SDL2 library](https://www.libsdl.org/) also known as the Simple DirectMedia Layer. This library makes it easy to interact with video, audio, input hardware and has excellent support for WASM.
-
-As for understanding how to compile to WASM, the following resources were a big help:
-- https://web.dev/articles/compiling-mkbitmap-to-webassembly
-- https://web.dev/articles/drawing-to-canvas-in-emscripten
-
-The first one is a really good reference on how to get started and how arguments/file access are handled.
-The second one being an excelent reference on how to interact with SDL2 and drawing to the canvas.
-
