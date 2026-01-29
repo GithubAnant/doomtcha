@@ -1,0 +1,197 @@
+/* Fonts */
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap");
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: "Courier Prime", "Courier New", monospace;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative; /* For absolute positioning of moving buttons */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Typography */
+.text-large {
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  max-width: 800px;
+  z-index: 10; /* Ensure text stays above moving elements if possible */
+}
+
+.text-medium {
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+}
+
+.text-green {
+  color: #00ff00;
+  font-size: 1.5rem;
+  margin-top: 20px;
+}
+
+/* Buttons */
+.btn {
+  background-color: #fff;
+  color: #000;
+  border: none;
+  padding: 10px 30px;
+  font-family: inherit;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.1s;
+}
+
+.btn:active {
+  transform: scale(0.95);
+}
+
+.button-group {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
+/* Section 1 */
+#btn-enjoy-no {
+  position: relative; /* Will become absolute on first click/move */
+  /* transition removed for teleport effect */
+  z-index: 20;
+}
+
+.response-text {
+  margin-top: 20px;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #00ff00;
+}
+
+/* Section 2 */
+.split-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.text-side {
+  width: 65%; /* Adjusted to allow larger image */
+  text-align: right;
+  padding-right: 20px;
+}
+
+.image-side {
+  width: 35%; /* Increased from 20% */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.awkward-img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0; /* Removed curved border */
+}
+
+/* Section 3 */
+.arrow-container {
+  display: flex;
+  align-items: center;
+  gap: 0px;
+  position: relative;
+  overflow: visible; /* Allow arrow to stick out */
+}
+
+.red-arrow {
+  width: 300px;
+  height: 150px;
+  transform: rotate(-10deg);
+  margin-right: -20px;
+  margin-top: 20px;
+}
+
+.click-here-text {
+  color: red;
+  font-size: 1.5rem;
+  margin-top: -50px;
+  margin-left: 200px;
+  font-weight: bold;
+  transform: rotate(-5deg);
+}
+
+/* Section 4 */
+.runaway-wrapper {
+  position: relative;
+}
+
+.hover-warning {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  color: red;
+  font-weight: bold;
+  white-space: nowrap;
+  font-size: 1.5rem;
+  padding-top: 10px;
+}
+
+#btn-play-no {
+  transition: all 0.1s ease-out;
+}
+
+/* Game Container */
+#game-container {
+  margin-top: 50px;
+  width: 100%;
+  height: 60vh; /* Fixed height for the game area */
+
+  /* Canvas Wrapper styles from styles.css */
+  display: flex !important; /* Overridden by hidden class, but flex when shown */
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+}
+
+#game-container.hidden {
+  display: none !important;
+}
+
+canvas {
+  /* Match styles.css #canvas exactly */
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+
+  image-rendering: pixelated;
+  outline: none;
+  filter: drop-shadow(0 0 20px rgba(0, 0, 0, 0.5));
+
+  /* Prevent Emscripten from forcing absolute positioning */
+  position: relative !important;
+  display: block !important;
+  margin: 0 auto !important;
+}
