@@ -71,7 +71,8 @@ function LoadDoom(buffer) {
 
     // Write WAD file to virtual filesystem and start the game
     doom.FS.writeFile("/doom-data.wad", buffer);
-    doom.callMain(["-iwad", "doom-data.wad"]);
+    // doom.callMain(["-iwad", "doom-data.wad"]);
+    doom.callMain(["-iwad", "doom-data.wad", "-skill", "2", "-warp", "1", "1"]);
   }, 600);
 }
 
