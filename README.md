@@ -1,7 +1,5 @@
-# Doomtcha
-
 <div align="center">
-  <img src="public/doom.png" alt="Doomtcha Logo" width="600" />
+  <img src="public/doom.png" alt="Doomtcha Logo" width="300" />
 </div>
 
 <div align="center">
