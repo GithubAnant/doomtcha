@@ -1,4 +1,7 @@
+<img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
+
 <div align="center">
+  <br />
   <a href="https://doomtcha.vercel.app">
     <img src="public/doom.png" alt="Doomtcha Logo" width="300" />
   </a>
@@ -9,13 +12,9 @@
   <br />
 </div>
 
-<img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
+## About
 
-<div align="center">
-  <p>
-    <strong>Doomtcha</strong> is a "CAPTCHA" that requires users to prove they <br/> are human by slaying demons in the classic 1993 game <strong>DOOM</strong>.
-  </p>
-</div>
+**Doomtcha** is a "CAPTCHA" that requires users to prove they are human by slaying demons in the classic 1993 game **DOOM**.
 
 ---
 
