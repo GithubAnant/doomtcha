@@ -3,13 +3,17 @@
 </div>
 
 <div align="center">
-  <h3>Kill Ops to prove you're a human</h3>
+  <p>Kill Ops to prove you're a human</p>
   <br />
 </div>
 
 > <img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
 
-**Doomtcha** is a "CAPTCHA" that requires users to prove they are human by slaying demons in the classic 1993 game **DOOM**.
+<div align="center">
+  <p>
+    <strong>Doomtcha</strong> is a "CAPTCHA" that requires users to prove they <br/> are human by slaying demons in the classic 1993 game <strong>DOOM</strong>.
+  </p>
+</div>
 
 ---
 
@@ -38,9 +42,9 @@ Visit **[http://localhost:8000](http://localhost:8000)**.
 
 ## Credits
 
-- **Thomas Van Iseghem**: Creator of [wasmDOOM](https://github.com/VanIseghemThomas/wasmDOOM) (Base WASM Port)
-- **Alex Oberhofer**: Creator of [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom)
-- **Id Software**: Creators of DOOM
+- **Thomas Van Iseghem**: Creator of [wasmDOOM](https://github.com/VanIseghemThomas/wasmDOOM). His foundational port of Doom to WebAssembly is the core of this project.
+- **Alex Oberhofer**: Creator of [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom).
+- **Id Software**: The legends who created DOOM.
 
 **Created by Anant Singhal**
 
