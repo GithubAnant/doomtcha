@@ -5,13 +5,15 @@
 <div align="center">
   <p>Kill Ops to prove you're a human</p>
   <br />
-  <a href="https://doomtcha.vercel.app">
-    <h2>☠️ ENTER HELL (LIVE DEMO) ☠️</h2>
-  </a>
-  <br />
 </div>
 
-> <img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
+<img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
+
+<div align="center">
+  <a href="https://doomtcha.vercel.app">
+    <img src="public/enter_hell_btn.png" alt="ENTER HELL" width="250" />
+  </a>
+</div>
 
 <div align="center">
   <p>
