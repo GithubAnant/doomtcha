@@ -9,43 +9,38 @@
 
 > <img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
 
-**Doomtcha** is a "CAPTCHA" (Completely Automated Public Turing test to tell Computers and Humans Apart) that requires users to prove they are human by slaying demons in the classic 1993 game **DOOM**, running directly in the browser via WebAssembly.
+**Doomtcha** is a "CAPTCHA" that requires users to prove they are human by slaying demons in the classic 1993 game **DOOM**.
 
 ---
 
-## 🚀 How to Try It (Super Easy)
+## Build & Run
 
-If you have a Mac, you can get this running in 2 minutes:
+### 1. Install Dependencies & Compile
 
-### 1. Install & Build
-
-We have a script that installs **Emscripten** (the WASM compiler) and builds the game for you:
+This script installs Emscripten (WASM compiler) and builds the project.
 
 ```bash
-# 1. Install Dependencies (Emscripten) & Build
 ./installers/install_emscriptem.sh && cd src && make
 ```
 
 ### 2. Run
 
-Just serve the `public` folder:
+Serve the `public` directory.
 
 ```bash
 cd public
 python3 -m http.server 8000
 ```
 
-Go to **[http://localhost:8000](http://localhost:8000)** and start slaying!
+Visit **[http://localhost:8000](http://localhost:8000)**.
 
 ---
 
 ## Credits
 
-This project wouldn't be possible without the incredible work of:
-
-- **Thomas Van Iseghem**: Creator of **[wasmDOOM](https://github.com/VanIseghemThomas/wasmDOOM)**. His foundational port of Doom to WebAssembly is the core of this project.
-- **Alex Oberhofer**: Creator of **[sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom)**.
-- **Id Software**: For creating DOOM, the game that runs on everything.
+- **Thomas Van Iseghem**: Creator of [wasmDOOM](https://github.com/VanIseghemThomas/wasmDOOM) (Base WASM Port)
+- **Alex Oberhofer**: Creator of [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom)
+- **Id Software**: Creators of DOOM
 
 **Created by Anant Singhal**
 
