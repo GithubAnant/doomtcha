@@ -1,5 +1,7 @@
 <div align="center">
-  <img src="public/doom.png" alt="Doomtcha Logo" width="300" />
+  <a href="https://doomtcha.vercel.app">
+    <img src="public/doom.png" alt="Doomtcha Logo" width="300" />
+  </a>
 </div>
 
 <div align="center">
@@ -8,12 +10,6 @@
 </div>
 
 <img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
-
-<div align="center">
-  <a href="https://doomtcha.vercel.app">
-    <img src="public/enter_hell_btn.png" alt="ENTER HELL" width="250" />
-  </a>
-</div>
 
 <div align="center">
   <p>
