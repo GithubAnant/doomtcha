@@ -5,6 +5,10 @@
 <div align="center">
   <p>Kill Ops to prove you're a human</p>
   <br />
+  <a href="https://doomtcha.vercel.app">
+    <h2>☠️ ENTER HELL (LIVE DEMO) ☠️</h2>
+  </a>
+  <br />
 </div>
 
 > <img src="doomtcha.gif" alt="Doomtcha Gameplay" width="100%" />
@@ -46,7 +50,7 @@ Visit **[http://localhost:8000](http://localhost:8000)**.
 - **Alex Oberhofer**: Creator of [sdl2-doom](https://github.com/AlexOberhofer/sdl2-doom).
 - **Id Software**: The legends who created DOOM.
 
-**Created by Anant Singhal**
+**Created by [Anant](https://www.linkedin.com/in/anantsinghal1)**
 
 ---
 
